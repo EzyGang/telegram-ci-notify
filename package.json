@@ -1,0 +1,44 @@
+{
+  "name": "telegram-ci-status",
+  "version": "1.0.0",
+  "description": "Send Telegram notifications for CI/CD with automatic start and completion updates",
+  "type": "module",
+  "main": "dist/main.js",
+  "scripts": {
+    "build": "tsc",
+    "bundle": "node scripts/bundle.js",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "type-check": "tsc --noEmit",
+    "lint": "biome check --error-on-warnings ./src",
+    "validate": "pnpm lint && pnpm type-check",
+    "fix": "pnpm format && pnpm type-check",
+    "format": "biome check --error-on-warnings --write --unsafe ./src ./__tests__",
+    "package": "pnpm run bundle"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EzyGang/telegram-ci-status.git"
+  },
+  "keywords": [
+    "github-actions",
+    "telegram",
+    "ci",
+    "cd",
+    "notifications"
+  ],
+  "author": "Galtozzy",
+  "license": "MIT",
+  "dependencies": {
+    "@actions/core": "^3.0.0",
+    "@actions/github": "^9.0.0",
+    "@biomejs/biome": "^2.4.9"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "@vercel/ncc": "^0.38.4",
+    "@vitest/coverage-v8": "^4.1.2",
+    "typescript": "^6.0.2",
+    "vitest": "^4.1.2"
+  }
+}

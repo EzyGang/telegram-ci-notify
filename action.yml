@@ -1,0 +1,42 @@
+name: "Telegram CI Status"
+description: "Send Telegram notifications for CI/CD with automatic start and completion updates"
+author: "Galtozzy"
+branding:
+  icon: "message-circle"
+  color: "blue"
+
+inputs:
+  bot_token:
+    description: "Telegram bot token from @BotFather"
+    required: true
+  chat_id:
+    description: "Telegram chat ID or channel username (with @)"
+    required: true
+  message_thread_id:
+    description: "Forum topic ID for supergroups (optional)"
+    required: false
+  is_deployment:
+    description: "Explicitly mark as deployment (overrides auto-detection)"
+    required: false
+    default: "false"
+  pin_on_success:
+    description: "Pin the message on successful deployment"
+    required: false
+    default: "false"
+  job_status:
+    description: "Job status (automatically set by GitHub Actions)"
+    required: false
+    default: "${{ job.status }}"
+
+outputs:
+  message_id:
+    description: "Telegram message ID of the notification"
+  is_deployment:
+    description: "Whether this run was detected as a deployment"
+
+runs:
+  using: "node24"
+  pre: "dist/pre.js"
+  main: "dist/main.js"
+  post: "dist/post.js"
+  post-if: "always()"
